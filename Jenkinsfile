@@ -19,6 +19,16 @@ pipeline {
                 sh"npm run build"
             }
         }
+        stage('docker') {
+            steps {
+                sh"docker build --tag helloworld:$BUILD_NUMBER ."
+                sh"docker run --name helloworld -p 5173:5173 helloworld:$BUILD_NUMBER"
+
+            }
+        }
     }
     
 }
+
+
+
